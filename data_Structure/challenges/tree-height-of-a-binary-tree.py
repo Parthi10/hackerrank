@@ -52,3 +52,17 @@ for _ in range(t):
     tree.create(x)
 
 print(height(tree.root))
+
+'''
+#alternate solution
+
+def height(root):
+    if root:
+        return 1 + max(height(root.left), height(root.right))
+    else:
+        return -1
+
+def getTreeHeight(node):
+    return  1 + max(getTreeHeight(node.left), getTreeHeight(node.right)) if node else -1
+
+'''

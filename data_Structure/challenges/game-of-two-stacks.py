@@ -14,28 +14,30 @@ def get_min_number(a, b, x, sum_so_far=0):
     return 0
 '''
 
-def get_prefix_sum(l):
-    
+
 g = int(input().strip())
 for a0 in range(g):
-    n,m,x = input().strip().split(' ')
-    n,m,x = [int(n),int(m),int(x)]
+    n,m,max_sum = input().strip().split(' ')
+    n,m,max_sum = [int(n),int(m),int(max_sum)]
     a = list(map(int, input().strip().split(' ')))
     b = list(map(int, input().strip().split(' ')))
 
-    num_of_ints_removed_so_far = 0
+    ans = 0
     sum_so_far = 0
-    while True:
-        if sum_so_far <= x:
-            if a[0] <= b[0] and sum_so_far+a[0]<=x:
-                sum_so_far += a.pop(0)
-                num_of_ints_removed_so_far += 1
-            elif b[0] < a[0] and sum_so_far+b[0]<=x:
-                sum_so_far += b.pop(0)
-                num_of_ints_removed_so_far += 1
-            else:
-                print(num_of_ints_removed_so_far)
-                break
-        else:
-            print(num_of_ints_removed_so_far)
+    i, j = 0,0
+    while (i<n and sum_so_far + a[i] <= max_sum):
+        sum_so_far += a[i]
+        i += 1
+    ans = i
+    while (j<m and i>=0):
+        sum_so_far += b[j]
+        j+=1
+        while(sum_so_far>max_sum and i>0):
+            i -= 1
+            sum_so_far -= a[i]
+        if sum_so_far <= max_sum and ans < i+j:
+            ans = i+j
+        #optimise, prevent j to traverse the whole b stack, there's no need
+        if i==0 and sum_so_far>max_sum:
             break
+    print(ans)
