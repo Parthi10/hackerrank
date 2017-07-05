@@ -13,14 +13,11 @@ class Tree(object):
     def __init__(self, root_node=None):
         self.root_node = root_node
 
-    def insert(self, new_node, base_node):
-        if new_node.data > base_node.data:
-            if base_node.right_node == None:
-                base_node.right_node = new_node
-            else:
-                insert(self, new_node, base_node=base_node.right_node)
-        else:#cant' be equal, an assumption :]
-            if base_node.left_node == None:
-                base_node.left_node = new_node
-            else:
-                insert(self, new_node, base_node=base_node.left_node)
+    def insert(self, new_node, root):
+        if root == None:
+            return new_node
+        if new_node.data >= root.data:
+            root.right_node = insert(self, new_node, root.right_node)
+        else:
+            root.left_node = insert(self, new_node, root.left_node)
+        return root
