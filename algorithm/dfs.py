@@ -89,7 +89,6 @@ def find_all_paths_bfs(graph, start, end, stack=[]):
         for i in children:
             if i not in temp_path:
                 new_path = temp_path + [i]
-
                 stack.append(new_path)
 
 

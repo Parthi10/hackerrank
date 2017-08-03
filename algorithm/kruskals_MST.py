@@ -22,11 +22,6 @@ class DisjoinSetsContainer(object):
         node1 = self.map[data1]
         node2 = self.map[data2]
 
-        if not node1:
-            node1 = self.make(data1)
-        if not node2:
-            node2 = self.make(data2)
-
         parent1 = self.find(data1)
         parent2 = self.find(data2)
         if parent1 == parent2:
@@ -34,7 +29,7 @@ class DisjoinSetsContainer(object):
 
         #whoever's rank is higher, becomes parent of other
         if parent1.rank >= parent2.rank:
-            if parent1.rank == parent2.rank:
+            if parent1.rank == parent1.rank:
                 parent1.rank += 1
             parent2.parent = parent1
         else:
@@ -64,16 +59,25 @@ class DisjoinSetsContainer(object):
         return node
         '''
 
+graph = defaultdict(lambda:float('inf'))
 
 M = DisjoinSetsContainer()
 
-n,k,m = input().strip().split(' ')
-n,k,m = [int(n),int(k),int(m)]
-for a0 in range(k):
-    x,y = input().strip().split(' ') #data1 data2
-    x,y = [int(x),int(y)]
-    M.union(x, y)
+n, m = map(int, input().strip().split())
+for _ in range(m):
+    x, y, r = map(int, input().strip().split())
+    edge = tuple([x, y])
+    # print('edge', edge)
+    w = graph[edge]
+    graph[edge] = r if r < w  else w
 
-a = list(map(int, input().strip().split(' ')))
-for i in a:
-    print(i, M.find(i).data)
+for i in range(1, n+1):
+    M.make(i)
+
+mst_weight = 0
+for edge, weight in sorted(graph.items(), key=lambda x: x[1]):
+    if M.find(edge[0]) != M.find(edge[1]):
+        mst_weight += weight
+        M.union(edge[0], edge[1])
+
+print(mst_weight)

@@ -26,7 +26,7 @@ class MinHeap(object):
         return heappop(self.heap)
 
     def deleteKey(self, key):
-        i = self.heap.index(key)
+        i = self.heap.index(key)#O(n); use dictionary to store key to index
         self.decreaseKey(i, float('-inf'))
         self.extractMin()
 

@@ -9,7 +9,6 @@ def insertionsort(arr):
 				if arr[i] > arr[i+1]:
 					arr[i], arr[i+1] = arr[i+1], arr[i]
 				i -= 1
-
 			arrprint(arr)
 		else:
 			arrprint(arr)

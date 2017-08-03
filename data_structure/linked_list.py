@@ -8,7 +8,7 @@ class LinkedList(object):
 
     def __init__(self, first_node):
         self.root_node = first_node
-        self.tail_node = first_node #
+        self.tail_node = first_node
         self.size =  1
 
     def prepend_node(self, node_to_be_prepended):

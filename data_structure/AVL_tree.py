@@ -13,8 +13,8 @@ class Tree(object):
 
     def rightRotate(self, root):
         LNode = root.leftChild
-        root.leftChild = LNode.rightChild
         LNode.rightChild = root
+        root.leftChild = LNode.rightChild
         root.height = self.setHeight(root)
         LNode.height = self.setHeight(LNode)
         return LNode
@@ -30,6 +30,7 @@ class Tree(object):
     def setHeight(self, root):
         return 1 + max(self.height(root.leftChild), self.height(root.rightChild))
 
+    '''height of NULL node is -1'''
     def height(self, root):
         return root.height if root else -1
 
@@ -55,7 +56,7 @@ class Tree(object):
             if balance(root.rightChild) > 0:
                 root.leftChild = self.rightRotate(root.rightChild)
             root = self.leftRotate(root)
-        else:
+        else:#do we really need to setHeight(root) if new Node is created with height=0?
             root.height = self.setHeight(root)
 
         return root
